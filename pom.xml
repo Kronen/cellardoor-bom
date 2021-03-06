@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.github.kronen.cellardoor-bom</groupId>
+    <groupId>com.github.kronen</groupId>
     <artifactId>cellardoor-bom</artifactId>
     <version>0.0.1</version>
 
