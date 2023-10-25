@@ -9,22 +9,42 @@
     <relativePath/>
     <!-- lookup parent from repository -->
   </parent>
+
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.0.7</version>
+  <version>0.0.8-SNAPSHOT</version>
   <packaging>pom</packaging>
+
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
+
   <licenses>
     <license>
       <name>GNU General Public License v3.0</name>
       <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
     </license>
   </licenses>
+
   <developers>
     <developer>
+      <id>kronen</id>
       <name>Alberto Gonzalez Lagos</name>
+      <email>kronenr@gmail.com</email>
+      <url>https://github.com/kronen</url>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>Europe/Madrid</timezone>
     </developer>
   </developers>
+
+  <scm>
+    <connection>scm:git:git@github.com/kronen/cellardoor-bom.git</connection>
+    <developerConnection>scm:git:git@github.com/kronen/cellardoor-bom.git</developerConnection>
+    <url>https://github.com/kronen/cellardoor-bom</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -41,9 +61,17 @@
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <commons-lang.version>3.13.0</commons-lang.version>
-    <awaitility.version>4.2.0</awaitility.version>
-    <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
     <de.flapdoodle.embed.mongo.version>4.9.2</de.flapdoodle.embed.mongo.version>
+    <rest-assured.version>5.3.2</rest-assured.version>
+
+    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <checkstyle.version>10.9.3</checkstyle.version>
+    <formatter-maven-plugin.version>2.22.0</formatter-maven-plugin.version>
+    <maven-release-plugin.version>3.0.0</maven-release-plugin.version>
+    <git-commit-id-maven-plugin.version>5.0.0</git-commit-id-maven-plugin.version>
+    <testcontainers.version>1.19.1</testcontainers.version>
+    <!-- Snyk vulnerabilities mitigations -->
+    <snakeyaml.version>2.2</snakeyaml.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -68,23 +96,27 @@
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.hibernate.validator</groupId>
-        <artifactId>hibernate-validator</artifactId>
-        <version>${hibernate-validator.version}</version>
-      </dependency>
 
       <dependency>
-        <groupId>org.awaitility</groupId>
-        <artifactId>awaitility</artifactId>
-        <version>${awaitility.version}</version>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>${openapi-generator.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- Testing -->
+      <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>${rest-assured.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>de.flapdoodle.embed</groupId>
-        <artifactId>de.flapdoodle.embed.mongo</artifactId>
-        <version>${de.flapdoodle.embed.mongo.version}</version>
-        <scope>test</scope>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -105,26 +137,13 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>de.flapdoodle.embed</groupId>
-      <artifactId>de.flapdoodle.embed.mongo</artifactId>
-    </dependency>
 
     <!-- Testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-test</artifactId>
-      <scope>test</scope>
-    </dependency>
+
   </dependencies>
   <build>
     <plugins>
@@ -154,7 +173,8 @@
       <plugin>
         <groupId>io.github.git-commit-id</groupId>
         <artifactId>git-commit-id-maven-plugin</artifactId>
-        <version>5.0.0</version>
+        <version>${git-commit-id-maven-plugin.version}</version>
+        <!-- If using Spring Actuator the Git information will be returned when calling /info endpoint -->
       </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
@@ -197,6 +217,11 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven-release-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>${maven-enforcer-plugin.version}</version>
         <executions>
@@ -225,12 +250,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>${maven-checkstyle-plugin.version}</version>
         <dependencies>
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>10.9.3</version>
+            <version>${checkstyle.version}</version>
           </dependency>
         </dependencies>
         <executions>
@@ -250,7 +275,7 @@
       <plugin>
         <groupId>net.revelc.code.formatter</groupId>
         <artifactId>formatter-maven-plugin</artifactId>
-        <version>2.22.0</version>
+        <version>${formatter-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>format-code</id>
@@ -342,10 +367,4 @@
       </distributionManagement>
     </profile>
   </profiles>
-  <scm>
-    <connection>scm:git:git@github.com/Kronen/cellardoor-bom.git</connection>
-    <developerConnection>scm:git:git@github.com/Kronen/cellardoor-bom.git</developerConnection>
-    <url>https://github.com/Kronen/cellardoor-bom</url>
-    <tag>HEAD</tag>
-  </scm>
 </project>
