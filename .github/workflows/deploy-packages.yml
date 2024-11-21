@@ -19,6 +19,6 @@ jobs:
           java-distribution: temurin
           maven-version: 3.9.9
       - name: Publish package
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode deploy -Pghrepo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
