@@ -63,7 +63,7 @@
     <formatter-maven-plugin.version>2.22.0</formatter-maven-plugin.version>
     <git-commit-id-maven-plugin.version>5.0.0</git-commit-id-maven-plugin.version>
     <buildnumber-maven-plugin.version>3.2.0</buildnumber-maven-plugin.version>
-    <spotless-maven-plugin>2.43.0</spotless-maven-plugin>
+    <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
 
     <lombok.version>1.18.36</lombok.version>
     <mapstruct.version>1.6.3</mapstruct.version>
