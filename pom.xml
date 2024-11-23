@@ -12,7 +12,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -273,10 +273,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>io.github.git-commit-id</groupId>
         <artifactId>git-commit-id-maven-plugin</artifactId>
