@@ -12,7 +12,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.3.2</version>
+  <version>0.3.3</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -295,6 +295,25 @@
         <artifactId>spotless-maven-plugin</artifactId>
         <version>${spotless-maven-plugin.version}</version>
         <configuration>
+          <formats>
+            <format>
+              <includes>
+                <include>*.md</include>
+                <include>.gitignore</include>
+                <include>README.md</include>
+                <include>"config/**/*.xml"</include>
+                <include>"src/**/*.xml"</include>
+                <include>"*.yml"</include>
+                <include>"*.yaml"</include>
+              </includes>
+              <trimTrailingWhitespace/>
+              <endWithNewline/>
+              <indent>
+                <tabs>true</tabs>
+                <spacesPerTab>2</spacesPerTab>
+              </indent>
+            </format>
+          </formats>
           <java>
             <includes>
               <include>src/main/java/**/*.java</include>
@@ -308,14 +327,8 @@
             </palantirJavaFormat>
             <importOrder>
               <wildcardsLast>false</wildcardsLast>
-              <order>java|javax,org,com,com.diffplug,,#com.diffplug,#</order>
+              <order>java|javax,com.github.kronen,#</order>
               <semanticSort>false</semanticSort>
-              <treatAsPackage>
-                <package>com.example.MyPackage</package>
-              </treatAsPackage>
-              <treatAsClass>
-                <class>com.example.myClass</class>
-              </treatAsClass>
             </importOrder>
             <removeUnusedImports/>
             <formatAnnotations/>
