@@ -296,11 +296,6 @@
                 <style>PALANTIR</style>
                 <formatJavadoc>false</formatJavadoc>
               </palantirJavaFormat>
-              <importOrder>
-                <wildcardsLast>false</wildcardsLast>
-                <order>java|javax,com.github.kronen,#</order>
-                <semanticSort>false</semanticSort>
-              </importOrder>
               <indent>
                 <tabs>true</tabs>
                 <spacesPerTab>4</spacesPerTab>
@@ -309,6 +304,16 @@
                 <spaces>true</spaces>
                 <spacesPerTab>2</spacesPerTab>
               </indent>
+              <importOrder>
+                <wildcardsLast>false</wildcardsLast>
+                <order>java|javax,com.github.kronen,#</order>
+                <semanticSort>false</semanticSort>
+              </importOrder>
+              <replaceRegex>
+                <name>Remove wildcard imports</name>
+                <searchRegex>import\s+(?:static\s+)?[^\*\s]+\*;(\r\n|\r|\n)</searchRegex>
+                <replacement>$1</replacement>
+              </replaceRegex>
               <removeUnusedImports/>
               <formatAnnotations/>
               <toggleOffOn/>
