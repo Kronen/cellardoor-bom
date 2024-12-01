@@ -12,7 +12,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.7.0</version>
+  <version>0.7.1</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -177,6 +177,11 @@
           <groupId>com.amashchenko.maven.plugin</groupId>
           <artifactId>gitflow-maven-plugin</artifactId>
           <version>1.21.0</version>
+          <configuration>
+            <gitFlowConfig>
+              <versionTagPrefix>v</versionTagPrefix>
+            </gitFlowConfig>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>io.github.git-commit-id</groupId>
