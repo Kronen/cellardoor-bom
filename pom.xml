@@ -12,7 +12,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.7.3</version>
+  <version>0.7.4</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -42,7 +42,7 @@
     <connection>scm:git:git@github.com/Kronen/cellardoor-bom.git</connection>
     <developerConnection>scm:git:git@github.com/Kronen/cellardoor-bom.git</developerConnection>
     <url>https://github.com/Kronen/cellardoor-bom</url>
-    <tag>0.4.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
@@ -179,6 +179,7 @@
           <version>1.21.0</version>
           <configuration>
             <skipFeatureVersion>true</skipFeatureVersion>
+            <pushRemote>false</pushRemote>
             <gitFlowConfig>
               <developmentBranch>master</developmentBranch>
               <versionTagPrefix>v</versionTagPrefix>
