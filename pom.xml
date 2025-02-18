@@ -11,7 +11,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.7.5</version>
+  <version>0.8.0</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -49,8 +49,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>21</java.version>
 
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
 
     <lombok.version>1.18.36</lombok.version>
     <mapstruct.version>1.6.3</mapstruct.version>
@@ -60,6 +59,7 @@
     <instancio-junit.version>5.0.2</instancio-junit.version>
     <maven-scm-plugin.version>2.0.1</maven-scm-plugin.version>
     <buildnumber-maven-plugin.version>3.2.0</buildnumber-maven-plugin.version>
+    <openapi-generator.version>7.10.0</openapi-generator.version>
 
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
@@ -330,6 +330,32 @@
               <formatAnnotations/>
               <toggleOffOn/>
             </java>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.openapitools</groupId>
+          <artifactId>openapi-generator-maven-plugin</artifactId>
+          <version>${openapi-generator.version}</version>
+          <configuration>
+            <generatorName>spring</generatorName>
+            <apiPackage>${project.groupId}.${project.artifactId}.api</apiPackage>
+            <modelPackage>${project.groupId}.${project.artifactId}.dto</modelPackage>
+            <invokerPackage>${project.groupId}.${project.artifactId}.invoker</invokerPackage>
+            <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+            <configOptions>
+              <openApiNullable>false</openApiNullable>
+              <performBeanValidation>true</performBeanValidation>
+              <library>spring-boot</library>
+              <useSpringBoot3>true</useSpringBoot3>
+              <reactive>true</reactive>
+              <interfaceOnly>true</interfaceOnly>
+              <dateLibrary>java8</dateLibrary>
+              <useSpringController>false</useSpringController>
+              <documentationProvider>springdoc</documentationProvider>
+              <skipDefaultInterface>true</skipDefaultInterface>
+              <useTags>true</useTags>
+            </configOptions>
+            <modelNameSuffix>DTO</modelNameSuffix>
           </configuration>
         </plugin>
       </plugins>
