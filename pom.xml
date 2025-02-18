@@ -5,14 +5,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.0</version>
+    <version>3.4.2</version>
     <relativePath/>
-    <!-- lookup parent from repository -->
   </parent>
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.7.4</version>
+  <version>0.7.5</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -181,7 +180,7 @@
             <skipFeatureVersion>true</skipFeatureVersion>
             <pushRemote>false</pushRemote>
             <gitFlowConfig>
-              <developmentBranch>master</developmentBranch>
+              <developmentBranch>main</developmentBranch>
               <versionTagPrefix>v</versionTagPrefix>
             </gitFlowConfig>
           </configuration>
