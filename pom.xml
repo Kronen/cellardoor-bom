@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.3</version>
     <relativePath/>
   </parent>
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.8.2</version>
+  <version>0.9.0</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -49,30 +49,27 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>21</java.version>
 
-    <maven.compiler.release>${java.version}</maven.compiler.release>
-
     <lombok.version>1.18.36</lombok.version>
     <mapstruct.version>1.6.3</mapstruct.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <commons-lang.version>3.17.0</commons-lang.version>
     <swagger-annotations.version>2.2.17</swagger-annotations.version>
-    <instancio-junit.version>5.0.2</instancio-junit.version>
-    <maven-scm-plugin.version>2.0.1</maven-scm-plugin.version>
-    <buildnumber-maven-plugin.version>3.2.0</buildnumber-maven-plugin.version>
-    <openapi-generator.version>7.10.0</openapi-generator.version>
+    <instancio-junit.version>5.3.0</instancio-junit.version>
 
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
     <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
     <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-    <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>10.20.1</checkstyle.version>
-    <formatter-maven-plugin.version>2.22.0</formatter-maven-plugin.version>
+    <checkstyle.version>10.21.2</checkstyle.version>
+    <formatter-maven-plugin.version>2.25.0</formatter-maven-plugin.version>
     <git-commit-id-maven-plugin.version>9.0.1</git-commit-id-maven-plugin.version>
-    <buildnumber-maven-plugin.version>3.2.0</buildnumber-maven-plugin.version>
-    <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
+    <spotless-maven-plugin.version>2.44.3</spotless-maven-plugin.version>
+    <maven-scm-plugin.version>2.1.0</maven-scm-plugin.version>
+    <openapi-generator-plugin.version>7.11.0</openapi-generator-plugin.version>
+    <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -336,7 +333,7 @@
         <plugin>
           <groupId>org.openapitools</groupId>
           <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>${openapi-generator.version}</version>
+          <version>${openapi-generator-plugin.version}</version>
           <configuration>
             <generatorName>spring</generatorName>
             <apiPackage>${project.groupId}.${project.artifactId}.api</apiPackage>
@@ -390,6 +387,45 @@
     </plugins>
   </build>
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${maven-pmd-plugin.version}</version>
+        <configuration>
+          <linkXref>true</linkXref>
+          <inputEncoding>utf-8</inputEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>${java.version}</targetJdk>
+          <excludes>
+            <exclude>**/*Bean.java</exclude>
+            <exclude>**/generated/*.java</exclude>
+          </excludes>
+          <excludeRoots>
+            <excludeRoot>target/generated-sources/stubs</excludeRoot>
+          </excludeRoots>
+        </configuration>
+        <reportSets>
+          <reportSet><!-- by default, id = "default" -->
+            <reports><!-- select non-aggregate reports -->
+              <report>pmd</report>
+              <report>cpd</report>
+            </reports>
+          </reportSet>
+          <reportSet><!-- aggregate reportSet, to define in poms having modules -->
+            <id>aggregate</id>
+            <inherited>false</inherited> <!-- don't run aggregate in child modules -->
+            <reports>
+              <report>aggregate-pmd</report>
+              <report>aggregate-cpd</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <profiles>
     <profile>
       <id>ghrepo</id>
@@ -433,5 +469,7 @@
       </distributionManagement>
     </profile>
   </profiles>
+
+
 </project>
 
