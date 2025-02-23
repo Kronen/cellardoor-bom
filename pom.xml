@@ -11,7 +11,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.9.1</version>
+  <version>0.9.2</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -69,6 +69,8 @@
     <spotless-maven-plugin.version>2.44.3</spotless-maven-plugin.version>
     <maven-scm-plugin.version>2.1.0</maven-scm-plugin.version>
     <openapi-generator-plugin.version>7.11.0</openapi-generator-plugin.version>
+    <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
+    <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
     <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
   </properties>
   <dependencyManagement>
@@ -391,11 +393,19 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>${maven-site-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${maven-project-info-reports-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
         <configuration>
-          <linkXref>true</linkXref>
-          <inputEncoding>utf-8</inputEncoding>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
           <excludes>
