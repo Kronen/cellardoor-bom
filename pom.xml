@@ -11,7 +11,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.9.4</version>
+  <version>0.9.5</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -406,6 +406,14 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>${maven-pmd-plugin.version}</version>
         <configuration>
+          <rulesets>
+            <ruleset>/category/java/bestpractices.xml</ruleset>
+            <ruleset>/category/java/codestyle.xml</ruleset>
+            <ruleset>/category/java/design.xml</ruleset>
+            <ruleset>/category/java/errorprone.xml</ruleset>
+            <ruleset>/category/java/multithreading.xml</ruleset>
+            <ruleset>/category/java/performance.xml</ruleset>
+          </rulesets>
           <minimumTokens>100</minimumTokens>
           <targetJdk>${java.version}</targetJdk>
           <excludes>
