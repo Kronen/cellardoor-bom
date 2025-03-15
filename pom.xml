@@ -11,7 +11,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.9.7</version>
+  <version>0.9.8</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -370,6 +370,39 @@
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>check-openapi-exists</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>file-exists</goal>
+              </goals>
+              <configuration>
+                <files>
+                  <file>${project.basedir}/src/main/resources/api/openapi.yaml</file>
+                </files>
+                <property>openapi.exists</property>
+              </configuration>
+            </execution>
+            <!-- Negate the property -->
+            <execution>
+              <id>negate-openapi-exists</id>
+              <phase>initialize</phase>
+              <goals>
+                <goal>bsh-property</goal>
+              </goals>
+              <configuration>
+                <source>skipOpenapi = !${openapi.exists};</source>
+                <properties>
+                  <property>skipOpenapi</property>
+                </properties>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <executions>
             <!-- Check if Redocly is installed or install -->
@@ -380,6 +413,7 @@
                 <goal>exec</goal>
               </goals>
               <configuration>
+                <skip>${skipOpenapi}</skip>
                 <executable>cmd</executable>
                 <arguments>
                   <argument>/c</argument>
@@ -395,6 +429,7 @@
                 <goal>exec</goal>
               </goals>
               <configuration>
+                <skip>${skipOpenapi}</skip>
                 <executable>redocly</executable>
                 <workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
                 <arguments>
