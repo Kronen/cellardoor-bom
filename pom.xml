@@ -11,7 +11,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.9.6</version>
+  <version>0.9.7</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -367,6 +367,45 @@
             </configOptions>
             <modelNameSuffix>DTO</modelNameSuffix>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <executions>
+            <!-- Check if Redocly is installed or install -->
+            <execution>
+              <id>check-redocly</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <executable>cmd</executable>
+                <arguments>
+                  <argument>/c</argument>
+                  <argument>redocly --version || npm install -g @redocly/cli@latest</argument>
+                </arguments>
+              </configuration>
+            </execution>
+            <!-- Run Redocly bundle command -->
+            <execution>
+              <id>bundle-openapi</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>exec</goal>
+              </goals>
+              <configuration>
+                <executable>redocly</executable>
+                <workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
+                <arguments>
+                  <argument>bundle</argument>
+                  <argument>api/openapi.yaml</argument>
+                  <argument>-o</argument>
+                  <argument>openapi.yaml</argument>
+                </arguments>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
