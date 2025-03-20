@@ -12,7 +12,7 @@ Include this BOM as the parent in your project's `pom.xml`:
 <parent>
     <groupId>com.github.kronen</groupId>
     <artifactId>cellardoor-bom</artifactId>
-    <version>0.8.0</version>
+    <version>0.9.9</version>
     <relativePath/>
 </parent>
 ```
