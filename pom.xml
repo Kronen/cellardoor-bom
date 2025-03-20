@@ -394,80 +394,6 @@
             <modelNameSuffix>DTO</modelNameSuffix>
           </configuration>
         </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>check-openapi-exists</id>
-              <phase>validate</phase>
-              <goals>
-                <goal>file-exists</goal>
-              </goals>
-              <configuration>
-                <files>
-                  <file>${project.basedir}/src/main/resources/api/openapi.yaml</file>
-                </files>
-                <property>openapi.exists</property>
-              </configuration>
-            </execution>
-            <!-- Negate the property -->
-            <execution>
-              <id>negate-openapi-exists</id>
-              <phase>initialize</phase>
-              <goals>
-                <goal>bsh-property</goal>
-              </goals>
-              <configuration>
-                <source>skipOpenapi = !${openapi.exists};</source>
-                <properties>
-                  <property>skipOpenapi</property>
-                </properties>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <executions>
-            <!-- Check if Redocly is installed or install -->
-            <execution>
-              <id>check-redocly</id>
-              <phase>generate-sources</phase>
-              <goals>
-                <goal>exec</goal>
-              </goals>
-              <configuration>
-                <skip>${skipOpenapi}</skip>
-                <executable>cmd</executable>
-                <arguments>
-                  <argument>/c</argument>
-                  <argument>redocly --version || npm install -g @redocly/cli@latest</argument>
-                </arguments>
-              </configuration>
-            </execution>
-            <!-- Run Redocly bundle command -->
-            <execution>
-              <id>bundle-openapi</id>
-              <phase>generate-sources</phase>
-              <goals>
-                <goal>exec</goal>
-              </goals>
-              <configuration>
-                <skip>${skipOpenapi}</skip>
-                <executable>redocly</executable>
-                <workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
-                <arguments>
-                  <argument>bundle</argument>
-                  <argument>api/openapi.yaml</argument>
-                  <argument>-o</argument>
-                  <argument>openapi.yaml</argument>
-                </arguments>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -495,6 +421,80 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>check-openapi-exists</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>file-exists</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>${project.basedir}/src/main/resources/api/openapi.yaml</file>
+              </files>
+              <property>openapi.exists</property>
+            </configuration>
+          </execution>
+          <!-- Negate the property -->
+          <execution>
+            <id>negate-openapi-exists</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>bsh-property</goal>
+            </goals>
+            <configuration>
+              <source>skipOpenapi = !${openapi.exists};</source>
+              <properties>
+                <property>skipOpenapi</property>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <!-- Check if Redocly is installed or install -->
+          <execution>
+            <id>check-redocly</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <skip>${skipOpenapi}</skip>
+              <executable>cmd</executable>
+              <arguments>
+                <argument>/c</argument>
+                <argument>redocly --version || npm install -g @redocly/cli@latest</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <!-- Run Redocly bundle command -->
+          <execution>
+            <id>bundle-openapi</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <skip>${skipOpenapi}</skip>
+              <executable>redocly</executable>
+              <workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
+              <arguments>
+                <argument>bundle</argument>
+                <argument>api/openapi.yaml</argument>
+                <argument>-o</argument>
+                <argument>openapi.yaml</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
