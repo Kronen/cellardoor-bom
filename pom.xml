@@ -423,35 +423,21 @@
         <artifactId>spotless-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
+        <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
             <id>check-openapi-exists</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>regex-property</goal>
-            </goals>
-            <configuration>
-              <name>openapi.exists</name>
-              <value>${project.basedir}/src/main/resources/api/openapi.yaml</value>
-              <regex>.+</regex>
-              <replacement>true</replacement>
-              <failIfNoMatch>false</failIfNoMatch>
-            </configuration>
-          </execution>
-          <!-- Negate the property -->
-          <execution>
-            <id>negate-openapi-exists</id>
             <phase>initialize</phase>
             <goals>
-              <goal>bsh-property</goal>
+              <goal>run</goal>
             </goals>
             <configuration>
-              <source>skipOpenapi = !${openapi.exists};</source>
-              <properties>
-                <property>skipOpenapi</property>
-              </properties>
+              <exportAntProperties>true</exportAntProperties>
+              <target>
+                <condition property="skip.openapi" value="false" else="true">
+                  <available file="${project.basedir}/src/main/resources/api/openapi.yaml"/>
+                </condition>
+              </target>
             </configuration>
           </execution>
         </executions>
@@ -459,6 +445,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
+        <version>	3.5.0</version>
         <executions>
           <!-- Check if Redocly is installed or install -->
           <execution>
@@ -468,7 +455,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <skip>${skipOpenapi}</skip>
+              <skip>${skip.openapi}</skip>
               <executable>cmd</executable>
               <arguments>
                 <argument>/c</argument>
@@ -484,7 +471,7 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <skip>${skipOpenapi}</skip>
+              <skip>${skip.openapi}</skip>
               <executable>redocly</executable>
               <workingDirectory>${project.basedir}/src/main/resources</workingDirectory>
               <arguments>
