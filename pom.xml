@@ -11,7 +11,7 @@
 
   <groupId>com.github.kronen</groupId>
   <artifactId>cellardoor-bom</artifactId>
-  <version>0.10.0</version>
+  <version>0.10.1</version>
   <packaging>pom</packaging>
 
   <description>Parent pom providing dependency and plugin management for CellarDoor project</description>
@@ -73,6 +73,7 @@
     <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
     <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
     <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
+    <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -445,7 +446,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>	3.5.0</version>
+        <version>${exec-maven-plugin.version}</version>
         <executions>
           <!-- Check if Redocly is installed or install -->
           <execution>
