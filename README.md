@@ -24,6 +24,29 @@ Your project must include the following files in the root directory:
 - `checkstyle.xml` (mandatory)
 - `checkstyle-suppressions.xml` (optional)
 
+### 3. OpenAPI Configuration
+
+To generate API interfaces, your project must include an OpenAPI specification file at:
+```
+${project.basedir}/src/main/resources/api/openapi.yaml
+```
+
+The OpenAPI plugins will:
+- Skip execution if this file is not present
+- When present:
+    1. Bundle the OpenAPI specification using Redocly
+    2. Generate Spring interfaces and DTOs based on the specification
+
+Example module structure:
+```
+your-project/
+├── api-module/
+│   └── src/main/resources/
+│       └── api/
+│           └── openapi.yaml    # Place your OpenAPI spec here
+└── pom.xml
+```
+
 ### 3. SCM Configuration
 
 Add your project's SCM information. Example:
