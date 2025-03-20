@@ -430,13 +430,14 @@
             <id>check-openapi-exists</id>
             <phase>validate</phase>
             <goals>
-              <goal>file-exists</goal>
+              <goal>regex-property</goal>
             </goals>
             <configuration>
-              <files>
-                <file>${project.basedir}/src/main/resources/api/openapi.yaml</file>
-              </files>
-              <property>openapi.exists</property>
+              <name>openapi.exists</name>
+              <value>${project.basedir}/src/main/resources/api/openapi.yaml</value>
+              <regex>.+</regex>
+              <replacement>true</replacement>
+              <failIfNoMatch>false</failIfNoMatch>
             </configuration>
           </execution>
           <!-- Negate the property -->
