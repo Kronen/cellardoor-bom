@@ -69,7 +69,7 @@
     <spotless-maven-plugin.version>2.44.3</spotless-maven-plugin.version>
     <maven-scm-plugin.version>2.1.0</maven-scm-plugin.version>
     <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-    <openapi-generator-plugin.version>7.11.0</openapi-generator-plugin.version>
+    <openapi-generator-plugin.version>7.14.0</openapi-generator-plugin.version>
     <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
     <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
     <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
