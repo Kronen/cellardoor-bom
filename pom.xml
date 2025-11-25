@@ -74,6 +74,10 @@
     <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
     <maven-pmd-plugin.version>3.27.0</maven-pmd-plugin.version>
     <exec-maven-plugin.version>3.5.1</exec-maven-plugin.version>
+
+    <!-- Default shell properties (overridden by OS-specific profiles) -->
+    <shell.executable>sh</shell.executable>
+    <shell.argument>-c</shell.argument>
   </properties>
 
   <dependencyManagement>
@@ -457,9 +461,9 @@
             </goals>
             <configuration>
               <skip>${skip.openapi}</skip>
-              <executable>cmd</executable>
+              <executable>${shell.executable}</executable>
               <arguments>
-                <argument>/c</argument>
+                <argument>${shell.argument}</argument>
                 <argument>redocly --version || npm install -g @redocly/cli@latest</argument>
               </arguments>
             </configuration>
@@ -539,6 +543,32 @@
   </reporting>
 
   <profiles>
+    <!-- Windows profile - automatically activated on Windows OS -->
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os>
+          <family>windows</family>
+        </os>
+      </activation>
+      <properties>
+        <shell.executable>cmd</shell.executable>
+        <shell.argument>/c</shell.argument>
+      </properties>
+    </profile>
+    <!-- Unix/Linux/Mac profile - automatically activated on non-Windows OS -->
+    <profile>
+      <id>unix</id>
+      <activation>
+        <os>
+          <family>!windows</family>
+        </os>
+      </activation>
+      <properties>
+        <shell.executable>sh</shell.executable>
+        <shell.argument>-c</shell.argument>
+      </properties>
+    </profile>
     <profile>
       <id>ghrepo</id>
       <build>
