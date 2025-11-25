@@ -12,7 +12,7 @@ Include this BOM as the parent in your project's `pom.xml`:
 <parent>
     <groupId>com.github.kronen</groupId>
     <artifactId>cellardoor-bom</artifactId>
-    <version>0.10.1</version>
+    <version>0.12.0</version>
     <relativePath/>
 </parent>
 ```
@@ -91,3 +91,4 @@ Add your project's SCM information. Example:
 ## License
 
 GNU General Public License v3.0
+
