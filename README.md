@@ -12,7 +12,7 @@ Include this BOM as the parent in your project's `pom.xml`:
 <parent>
     <groupId>com.github.kronen</groupId>
     <artifactId>cellardoor-bom</artifactId>
-    <version>0.12.0</version>
+    <version>1.0.0</version>
     <relativePath/>
 </parent>
 ```
@@ -62,8 +62,9 @@ Add your project's SCM information. Example:
 
 ## Features
 
-- Java 21 support
-- Spring Boot 3.4.2 compatibility
+- Java 25 support
+- Spring Boot 4.0.0 compatibility
+- Cross-platform build support (Windows, Linux, macOS)
 - Managed dependencies:
   - Lombok
   - MapStruct
@@ -84,9 +85,10 @@ Add your project's SCM information. Example:
 
 ## Requirements
 
-- Maven 3.9.9+
-- Java 21
+- Maven 3.9.11+
+- Java 25
 - Git
+- Node.js and npm (for OpenAPI bundling with Redocly)
 
 ## License
 
