@@ -195,6 +195,7 @@
           <configuration>
             <skipFeatureVersion>true</skipFeatureVersion>
             <pushRemote>false</pushRemote>
+            <mvnExecutable>${maven.home}/bin/mvn</mvnExecutable>
             <gitFlowConfig>
               <developmentBranch>main</developmentBranch>
               <productionBranch>main</productionBranch>
