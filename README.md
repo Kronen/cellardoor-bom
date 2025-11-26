@@ -62,7 +62,7 @@ Add your project's SCM information. Example:
 
 ## Features
 
-- Java 25 support
+- Java 25 support (LTS)
 - Spring Boot 4.0.0 compatibility
 - Cross-platform build support (Windows, Linux, macOS)
 - Managed dependencies:
@@ -86,7 +86,7 @@ Add your project's SCM information. Example:
 ## Requirements
 
 - Maven 3.9.11+
-- Java 25
+- Java 25 (LTS)
 - Git
 - Node.js and npm (for OpenAPI bundling with Redocly)
 
